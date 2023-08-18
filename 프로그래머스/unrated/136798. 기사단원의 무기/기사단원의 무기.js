@@ -34,24 +34,16 @@ function solution(number, limit, power) {
 
     for (let i = 1; i <= number; i++) {
         let count = 0;
-        let sqrtI = Math.floor(Math.sqrt(i)); // 숫자 i의 제곱근의 정수 부분
 
-        for (let j = 1; j <= sqrtI; j++) {
+        for (let j = 1; j <= Math.sqrt(i); j++) {
             if (i % j === 0) {
-                count += 2; // j와 i/j 둘 다 약수인 경우
+                count += j === i / j ? 1 : 2; // 중복 제외
             }
         }
 
-        if (sqrtI * sqrtI === i) {
-            count--; // 제곱근이 정수인 경우 중복 계산을 방지하기 위해 제외
-        }
-
-        if (count > limit) {
-            sum += power;
-        } else {
-            sum += count;
-        }
+        sum += count > limit ? power : count;
     }
 
     return sum;
 }
+
